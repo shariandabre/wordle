@@ -51,7 +51,7 @@ body{
     height: 16vw;
     width: 12vw;
     cursor: pointer;
-    background-color: rgb(129, 131, 132);
+    background-color:#333;
     color: rgb(215, 218, 220);
     flex-grow: 1;
     text-transform: uppercase;
