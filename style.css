@@ -1,3 +1,7 @@
+body{
+  overflow: hidden;
+}
+
 .guess-grid{
     grid-template-rows: repeat(6, 1fr);
     width: 350px;
