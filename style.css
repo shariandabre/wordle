@@ -13,7 +13,9 @@
 .tile{
   width: 100%;
   display: inline-flex;
-  border: 1px solid rebeccapurple;
+  border: 1px solid #3a3a3c;
+  max-width: 58px;
+  max-height: 58px;
   justify-content: center;
   align-items: center;
   font-size: 2rem;
