@@ -40,7 +40,8 @@
     font-weight: bold;
     border: 0;
     padding: 0;
-
+    height: 7vh;
+    width: 7vh;
     cursor: pointer;
     background-color: rgb(129, 131, 132);
     color: rgb(215, 218, 220);
