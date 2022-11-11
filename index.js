@@ -21,27 +21,74 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-    function handleSubmitWord(){
-        const CurrentWordArr=getCurrentWordArr()
-        if(CurrentWordArr.length !==5 ){
-            window.alert("word must be 5 letters")
-        }
-        const CurrentWord = CurrentWordArr.join('')
-        if(CurrentWord == word){
-            window.alert("Congratulations")
-        }
-        if(guessedWords.length===6){
-            window.alert('You have no more guesses!')
-        }
-        guessedWords.push([])
+  function getTileColor(letter, index) {
+    const iscorrectLetter = word.includes(letter);
+    if (!iscorrectLetter) {
+      return "rgb(58, 58, 60)";
     }
 
+    const letterInThatPosition = word.charAt(index);
+    const isCorrectPosition = letter === letterInThatPosition;
+
+    if (isCorrectPosition) {
+      return "rgb(83, 141, 78)";
+    }
+
+    return "rgb(181, 159, 59)";
+  }
+
+  function handleDeleteLetter() {
+    const currentWordArr = getCurrentWordArr();
+    const removedLetter = currentWordArr.pop();
+
+    guessedWords[guessedWords.length - 1] = currentWordArr;
+
+    const lastLetterEl = document.getElementById(String(availableSpace - 1));
+
+    lastLetterEl.textContent = "";
+    availableSpace = availableSpace - 1;
+  }
+
+  function handleSubmitWord() {
+    const CurrentWordArr = getCurrentWordArr();
+    if (CurrentWordArr.length !== 5) {
+      window.alert("word must be 5 letters");
+    } 
+    const CurrentWord = CurrentWordArr.join("");
+
+    //--------------animations
+    const firstLetterId = guessedWordCount * 5 + 1;
+    const interval = 200;
+    CurrentWordArr.forEach((letter, index) => {
+      setTimeout(() => {
+        const tileColor = getTileColor(letter, index);
+        const letterId = firstLetterId + index;
+        const letterEl = document.getElementById(letterId);
+        letterEl.classList.add("animate__flipInX");
+        letterEl.style = `background-color:${tileColor};border-color:${tileColor}`;
+      }, interval * index);
+    });
+    guessedWordCount += 1;
+    //----------------------------
+    if (CurrentWord == word) {
+      window.alert("Congratulations");
+    }
+    if (guessedWords.length === 6) {
+      window.alert("You have no more guesses!");
+    }
+    guessedWords.push([]);
+  }
+
   for (let i = 0; i < keys.length; i++) {
+    const CurrentWordArr = getCurrentWordArr();
     keys[i].onclick = ({ target }) => {
       const letter = target.getAttribute("data-key");
       console.log(letter);
       if (letter === "enter") {
-        handleSubmitWord();
+   
+          handleSubmitWord();
+
+        
         return;
       }
 
