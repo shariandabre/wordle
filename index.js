@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  let guessedWords  = [[]];
+  let guessedWords = [[]];
   let availableSpace = 1;
 
   let word = "dairy";
@@ -47,8 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     console.log(currentWordArr.length);
     const lastLetterEl = document.getElementById(String(availableSpace - 1));
-    if (lastLetterEl.getAttribute("data-empty")=== "true") {
-      
+    if (lastLetterEl.getAttribute("data-empty") === "true") {
       lastLetterEl.textContent = "";
       availableSpace = availableSpace - 1;
       console.log(availableSpace);
@@ -58,39 +57,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //------------enter------------------------------
   function handleSubmitWord() {
-    const CurrentWordArr = getCurrentWordArr();
-    if (CurrentWordArr.length !== 5) {
-      window.alert("word must be 5 letters");
+    const currentWordArr = getCurrentWordArr();
+    if (currentWordArr.length !== 5) {
+      window.alert("Word must be 5 letters");
     }
-    const CurrentWord = CurrentWordArr.join("");
+
+    const currentWord = currentWordArr.join("");
     //----------------------------------------------
 
     //--------------animations----------------------
-    
-    const firstLetterId = guessedWordCount * 5 + 1;
-    const interval = 200;
-    CurrentWordArr.forEach((letter, index) => {
-      setTimeout(() => {
-        const tileColor = getTileColor(letter, index);
-        const letterId = firstLetterId + index;
-        const letterEl = document.getElementById(letterId);
-        
-        letterEl.classList.add("animate__flipInX");
-        letterEl.setAttribute("data-empty",false)
-        letterEl.style = `background-color:${tileColor};border-color:${tileColor}`;
-      }, interval * index);
-    });
-    guessedWordCount += 1;
+
     //-----------------------------------------------
-    if (CurrentWord == word) {
+    if (currentWord == word) {
       window.alert("Congratulations");
     }
     if (guessedWords.length === 6) {
-      window.alert("You have no more guesses!");
+      window.alert(`Sorry, you have no more guesses!`);
     }
-    if (CurrentWordArr.length !== 5) {
-      window.alert("word must be 5 letters");
-    } else {
+    if (currentWord.length === 5) {
+      const firstLetterId = guessedWordCount * 5 + 1;
+      const interval = 200;
+      currentWordArr.forEach((letter, index) => {
+        setTimeout(() => {
+          const tileColor = getTileColor(letter, index);
+          const letterId = firstLetterId + index;
+          const letterEl = document.getElementById(letterId);
+  
+          letterEl.classList.add("animate__flipInX");
+          letterEl.setAttribute("data-empty", false);
+          letterEl.style = `background-color:${tileColor};border-color:${tileColor}`;
+        }, interval * index);
+      });
+      guessedWordCount += 1;
       guessedWords.push([]);
     }
   }
@@ -98,7 +96,6 @@ document.addEventListener("DOMContentLoaded", () => {
   for (let i = 0; i < keys.length; i++) {
     keys[i].onclick = ({ target }) => {
       const letter = target.getAttribute("data-key");
-      console.log(letter);
       if (letter === "enter") {
         handleSubmitWord();
         return;
