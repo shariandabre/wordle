@@ -39,21 +39,21 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   //------------Delete----------------------------
-  function handleDeleteLetter() {
-    const currentWordArr = getCurrentWordArr();
-    const removedLetter = currentWordArr.pop();
+  // function handleDeleteLetter() {
+  //   const currentWordArr = getCurrentWordArr();
+  //   const removedLetter = currentWordArr.pop();
 
-    guessedWords[guessedWords.length - 1] = currentWordArr;
+  //   guessedWords[guessedWords.length - 1] = currentWordArr;
 
-    console.log(currentWordArr.length);
-    if (currentWordArr.length >= 0) {
-      const lastLetterEl = document.getElementById(String(availableSpace - 1));
+  //   console.log(currentWordArr.length);
+  //   if (currentWordArr.length >= 0) {
+  //     const lastLetterEl = document.getElementById(String(availableSpace - 1));
       
-      lastLetterEl.textContent = "";
-      availableSpace = availableSpace - 1;
-      console.log(availableSpace);
-    }
-  }
+  //     lastLetterEl.textContent = "";
+  //     availableSpace = availableSpace - 1;
+  //     console.log(availableSpace);
+  //   }
+  // }
   //-----------------------------------------------
 
   //------------enter------------------------------
@@ -101,10 +101,10 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      if (letter === "del") {
-        handleDeleteLetter();
-        return;
-      }
+      // if (letter === "del") {
+      //   handleDeleteLetter();
+      //   return;
+      // }
 
       updateGuessedWords(letter);
     };

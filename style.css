@@ -19,8 +19,6 @@ body{
   height: 100%;
   display: inline-flex;
   border: 1px solid #333;
-  /* max-width: 58px;
-  max-height: 58px; */
   width: 100%;
   justify-content: center;
   align-items: center;
