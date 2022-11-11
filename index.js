@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let guessedWords = [[]];
   let availableSpace = 1;
 
-  let word = "dairy";
+  let word= words[Math.floor(Math.random() * words.length)];
   let guessedWordCount = 0;
 
   const keys = document.querySelectorAll(".keyboard-row button");
@@ -65,9 +65,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const currentWord = currentWordArr.join("");
     //----------------------------------------------
 
-    //--------------animations----------------------
-
-    //-----------------------------------------------
     if (currentWord == word) {
       window.alert("Congratulations");
     }
@@ -75,6 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
       window.alert(`Sorry, you have no more guesses!`);
     }
     if (currentWord.length === 5) {
+      //--------------animations----------------------
       const firstLetterId = guessedWordCount * 5 + 1;
       const interval = 200;
       currentWordArr.forEach((letter, index) => {
@@ -82,13 +80,14 @@ document.addEventListener("DOMContentLoaded", () => {
           const tileColor = getTileColor(letter, index);
           const letterId = firstLetterId + index;
           const letterEl = document.getElementById(letterId);
-  
+
           letterEl.classList.add("animate__flipInX");
           letterEl.setAttribute("data-empty", false);
           letterEl.style = `background-color:${tileColor};border-color:${tileColor}`;
         }, interval * index);
       });
       guessedWordCount += 1;
+      //-----------------------------------------------
       guessedWords.push([]);
     }
   }
