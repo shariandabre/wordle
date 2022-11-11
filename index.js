@@ -2,10 +2,11 @@ document.addEventListener("DOMContentLoaded", () => {
   let guessedWords = [[]];
   let availableSpace = 1;
 
-  let word = "dariy";
+  let word = "dairy";
   let guessedWordCount = 0;
 
   const keys = document.querySelectorAll(".keyboard-row button");
+
   function getCurrentWordArr() {
     const noOfGuessedWords = guessedWords.length;
     return guessedWords[noOfGuessedWords - 1];
@@ -37,26 +38,34 @@ document.addEventListener("DOMContentLoaded", () => {
     return "rgb(181, 159, 59)";
   }
 
+  //------------Delete----------------------------
   function handleDeleteLetter() {
     const currentWordArr = getCurrentWordArr();
     const removedLetter = currentWordArr.pop();
 
     guessedWords[guessedWords.length - 1] = currentWordArr;
 
-    const lastLetterEl = document.getElementById(String(availableSpace - 1));
-
-    lastLetterEl.textContent = "";
-    availableSpace = availableSpace - 1;
+    console.log(currentWordArr.length);
+    if (currentWordArr.length >= 0) {
+      const lastLetterEl = document.getElementById(String(availableSpace - 1));
+      
+      lastLetterEl.textContent = "";
+      availableSpace = availableSpace - 1;
+      console.log(availableSpace);
+    }
   }
+  //-----------------------------------------------
 
+  //------------enter------------------------------
   function handleSubmitWord() {
     const CurrentWordArr = getCurrentWordArr();
     if (CurrentWordArr.length !== 5) {
       window.alert("word must be 5 letters");
-    } 
+    }
     const CurrentWord = CurrentWordArr.join("");
+    //----------------------------------------------
 
-    //--------------animations
+    //--------------animations----------------------
     const firstLetterId = guessedWordCount * 5 + 1;
     const interval = 200;
     CurrentWordArr.forEach((letter, index) => {
@@ -69,26 +78,26 @@ document.addEventListener("DOMContentLoaded", () => {
       }, interval * index);
     });
     guessedWordCount += 1;
-    //----------------------------
+    //-----------------------------------------------
     if (CurrentWord == word) {
       window.alert("Congratulations");
     }
     if (guessedWords.length === 6) {
       window.alert("You have no more guesses!");
     }
-    guessedWords.push([]);
+    if (CurrentWordArr.length !== 5) {
+      window.alert("word must be 5 letters");
+    } else {
+      guessedWords.push([]);
+    }
   }
 
   for (let i = 0; i < keys.length; i++) {
-    const CurrentWordArr = getCurrentWordArr();
     keys[i].onclick = ({ target }) => {
       const letter = target.getAttribute("data-key");
       console.log(letter);
       if (letter === "enter") {
-   
-          handleSubmitWord();
-
-        
+        handleSubmitWord();
         return;
       }
 
