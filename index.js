@@ -83,26 +83,39 @@ document.addEventListener("DOMContentLoaded", () => {
   function handleSubmitWord() {
     const currentWordArr = getCurrentWordArr();
     if (currentWordArr.length !== 5) {
-      window.alert("Word must be 5 letters");
+      Notify({
+        title: "Not enough letters",
+        type: "warning",
+        position: "top center",
+        duration: 2000,
+      });
     }
 
     const currentWord = currentWordArr.join("");
 
     if (currentWord == word) {
-      window.alert("Congratulations");
+      Notify({
+        title: "Congratulations",
+        position: "top center",
+        duration: 2000,
+      });
     }
 
     if (guessedWords.length === 6) {
       if (!words.includes(currentWord)) {
-        window.alert("Enter a new word");
+        console.log("enter a new word");
+      } else {
+        Notify({
+          title: `You have no more guesses! The word was ${word}`,
+          type: "warning",
+          position: "top center",
+          duration: 2000,
+        });
+
+        setTimeout(() => {
+          document.location.reload();
+        }, 2000);
       }
-      else{
-      window.alert(
-        `You have no more guesses! The word was ${word}`
-      );
-      
-      document.location.reload();
-    }
     }
 
     if (currentWord.length === 5) {
@@ -124,7 +137,12 @@ document.addEventListener("DOMContentLoaded", () => {
         //-----------------------------------------------
         guessedWords.push([]);
       } else {
-        window.alert("Enter a new word");
+        Notify({
+          title: "Enter a new word",
+          type: "warning",
+          position: "top center",
+          duration: 2000,
+        });
       }
     }
   }
