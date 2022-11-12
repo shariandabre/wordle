@@ -2,11 +2,10 @@ document.addEventListener("DOMContentLoaded", () => {
   let guessedWords = [[]];
   let availableSpace = 1;
 
-  let word= words[Math.floor(Math.random() * words.length)];
+  let word = words[Math.floor(Math.random() * words.length)];
   let guessedWordCount = 0;
 
   const keys = document.querySelectorAll(".keyboard-row button");
-
   function getCurrentWordArr() {
     const noOfGuessedWords = guessedWords.length;
     return guessedWords[noOfGuessedWords - 1];
@@ -24,6 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function getTileColor(letter, index) {
     const iscorrectLetter = word.includes(letter);
+
     if (!iscorrectLetter) {
       return "rgb(58, 58, 60)";
     }
@@ -45,12 +45,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     guessedWords[guessedWords.length - 1] = currentWordArr;
 
-    console.log(currentWordArr.length);
     const lastLetterEl = document.getElementById(String(availableSpace - 1));
     if (lastLetterEl.getAttribute("data-empty") === "true") {
       lastLetterEl.textContent = "";
       availableSpace = availableSpace - 1;
-      console.log(availableSpace);
     }
   }
   //-----------------------------------------------
@@ -69,9 +67,14 @@ document.addEventListener("DOMContentLoaded", () => {
       window.alert("Congratulations");
     }
     if (guessedWords.length === 6) {
-      window.alert(`Sorry, you have no more guesses!`);
+      window.alert(
+        `You have no more guesses!,the word was ${word}.Do you want to reload???`
+      );
+      document.location.reload();
     }
+
     if (currentWord.length === 5) {
+      if(words.includes(currentWord)){;
       //--------------animations----------------------
       const firstLetterId = guessedWordCount * 5 + 1;
       const interval = 200;
@@ -80,7 +83,6 @@ document.addEventListener("DOMContentLoaded", () => {
           const tileColor = getTileColor(letter, index);
           const letterId = firstLetterId + index;
           const letterEl = document.getElementById(letterId);
-
           letterEl.classList.add("animate__flipInX");
           letterEl.setAttribute("data-empty", false);
           letterEl.style = `background-color:${tileColor};border-color:${tileColor}`;
@@ -90,6 +92,10 @@ document.addEventListener("DOMContentLoaded", () => {
       //-----------------------------------------------
       guessedWords.push([]);
     }
+    else{
+      window.alert("Enter a new word")
+    }
+  }
   }
 
   for (let i = 0; i < keys.length; i++) {
