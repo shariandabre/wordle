@@ -23,14 +23,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function getTileColor(letter, index) {
     const iscorrectLetter = word.includes(letter);
-    buttons = document.getElementsByTagName('button')
-    
-    
-    
+    buttons = document.getElementsByTagName("button");
+
     if (!iscorrectLetter) {
-      for(i=0;i<28;i++){
-        if(document.getElementsByTagName('button')[i].getAttribute("data-key")===letter)
-      document.getElementsByTagName('button')[i].style.background="rgb(58, 58, 60)" 
+      for (i = 0; i < 28; i++) {
+        if (
+          document
+            .getElementsByTagName("button")
+            [i].getAttribute("data-key") === letter
+        )
+          document.getElementsByTagName("button")[i].style.background =
+            "rgb(58, 58, 60)";
       }
       return "rgb(58, 58, 60)";
     }
@@ -39,15 +42,24 @@ document.addEventListener("DOMContentLoaded", () => {
     const isCorrectPosition = letter === letterInThatPosition;
 
     if (isCorrectPosition) {
-      for(i=0;i<28;i++){
-        if(document.getElementsByTagName('button')[i].getAttribute("data-key")===letter)
-      document.getElementsByTagName('button')[i].style.background="rgb(83, 141, 78)"
+      for (i = 0; i < 28; i++) {
+        if (
+          document
+            .getElementsByTagName("button")
+            [i].getAttribute("data-key") === letter
+        )
+          document.getElementsByTagName("button")[i].style.background =
+            "rgb(83, 141, 78)";
       }
       return "rgb(83, 141, 78)";
     }
-    for(i=0;i<28;i++){
-      if(document.getElementsByTagName('button')[i].getAttribute("data-key")===letter)
-    document.getElementsByTagName('button')[i].style.background="rgb(181, 159, 59)" 
+    for (i = 0; i < 28; i++) {
+      if (
+        document.getElementsByTagName("button")[i].getAttribute("data-key") ===
+        letter
+      )
+        document.getElementsByTagName("button")[i].style.background =
+          "rgb(181, 159, 59)";
     }
     return "rgb(181, 159, 59)";
   }
@@ -76,40 +88,45 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const currentWord = currentWordArr.join("");
 
-
     if (currentWord == word) {
       window.alert("Congratulations");
     }
+
     if (guessedWords.length === 6) {
+      if (!words.includes(currentWord)) {
+        window.alert("Enter a new word");
+      }
+      else{
       window.alert(
-        `You have no more guesses!,the word was ${word}.Do you want to reload???`
+        `You have no more guesses! The word was ${word}`
       );
+      
       document.location.reload();
+    }
     }
 
     if (currentWord.length === 5) {
-      if(words.includes(currentWord)){
-      //--------------animations----------------------
-      const firstLetterId = guessedWordCount * 5 + 1;
-      const interval = 200;
-      currentWordArr.forEach((letter, index) => {
-        setTimeout(() => {
-          const tileColor = getTileColor(letter, index);
-          const letterId = firstLetterId + index;
-          const letterEl = document.getElementById(letterId);
-          letterEl.classList.add("animate__flipInX");
-          letterEl.setAttribute("data-empty", false);
-          letterEl.style = `background-color:${tileColor};border-color:${tileColor}`;
-        }, interval * index);
-      });
-      guessedWordCount += 1;
-      //-----------------------------------------------
-      guessedWords.push([]);
+      if (words.includes(currentWord)) {
+        //--------------animations----------------------
+        const firstLetterId = guessedWordCount * 5 + 1;
+        const interval = 200;
+        currentWordArr.forEach((letter, index) => {
+          setTimeout(() => {
+            const tileColor = getTileColor(letter, index);
+            const letterId = firstLetterId + index;
+            const letterEl = document.getElementById(letterId);
+            letterEl.classList.add("animate__flipInX");
+            letterEl.setAttribute("data-empty", false);
+            letterEl.style = `background-color:${tileColor};border-color:${tileColor}`;
+          }, interval * index);
+        });
+        guessedWordCount += 1;
+        //-----------------------------------------------
+        guessedWords.push([]);
+      } else {
+        window.alert("Enter a new word");
+      }
     }
-    else{
-      window.alert("Enter a new word")
-    }
-  }
   }
 
   for (let i = 0; i < keys.length; i++) {
