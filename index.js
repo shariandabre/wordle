@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let word = words[Math.floor(Math.random() * words.length)];
   let guessedWordCount = 0;
-
   const keys = document.querySelectorAll(".keyboard-row button");
   function getCurrentWordArr() {
     const noOfGuessedWords = guessedWords.length;
@@ -93,28 +92,47 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const currentWord = currentWordArr.join("");
 
-    if (currentWord == word) {
+    if (currentWord === word && guessedWords.length !== 6) {
       Notify({
         title: "Congratulations",
         position: "top center",
         duration: 2000,
       });
+      setTimeout(() => {
+        document.location.reload();
+      }, 2000);
     }
 
     if (guessedWords.length === 6) {
-      if (!words.includes(currentWord)) {
-        console.log("enter a new word");
-      } else {
+      if (currentWord === word) {
         Notify({
-          title: `You have no more guesses! The word was ${word}`,
-          type: "warning",
+          title: "Congratulations",
           position: "top center",
           duration: 2000,
         });
-
         setTimeout(() => {
           document.location.reload();
         }, 2000);
+      } else {
+        if (words.includes(currentWord)) {
+          Notify({
+            title: `You have no more guesses! The word was ${word}`,
+            type: "warning",
+            position: "top center",
+            duration: 2000,
+          });
+          setTimeout(() => {
+            document.location.reload();
+          }, 2000);
+        }
+        else{
+          Notify({
+            title: "Enter a new word",
+            type: "warning",
+            position: "top center",
+            duration: 2000,
+          });
+        }
       }
     }
 
@@ -136,13 +154,13 @@ document.addEventListener("DOMContentLoaded", () => {
         guessedWordCount += 1;
         //-----------------------------------------------
         guessedWords.push([]);
-      } else {
+      } else { if(guessedWords.length !== 6){
         Notify({
           title: "Enter a new word",
           type: "warning",
           position: "top center",
           duration: 2000,
-        });
+        });}
       }
     }
   }
