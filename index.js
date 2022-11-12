@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const currentWord = currentWordArr.join("");
-    //----------------------------------------------
+
 
     if (currentWord == word) {
       window.alert("Congratulations");
