@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
             title: `You have no more guesses! The word was ${word}`,
             type: "warning",
             position: "top center",
-            duration: 2000,
+            duration: 6000,
           });
           setTimeout(() => {
             document.location.reload();
